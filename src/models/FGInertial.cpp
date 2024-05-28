@@ -118,10 +118,12 @@ bool FGInertial::Load(Element* el)
   GroundCallback->SetEllipse(a, b);
 
   // Messages to warn the user about possible inconsistencies.
-  if (a != b && J2 == 0.0)
-    cout << "Gravitational constant J2 is null for a non-spherical planet." << endl;
-  if (a == b && J2 != 0.0)
-    cout << "Gravitational constant J2 is non-zero for a spherical planet." << endl;
+  if (debug_lvl > 0) {
+    if (a != b && J2 == 0.0)
+      cout << "Gravitational constant J2 is null for a non-spherical planet." << endl;
+    if (a == b && J2 != 0.0)
+      cout << "Gravitational constant J2 is non-zero for a spherical planet." << endl;
+  }
 
   Debug(2);
 
@@ -292,7 +294,7 @@ void FGInertial::Debug(int from)
       cout << "    Semi minor axis: " << b << endl;
       cout << "    Rotation rate  : " << scientific << vOmegaPlanet(eZ) << endl;
       cout << "    GM             : " << GM << endl;
-      cout << "    J2             : " << J2 << endl << defaultfloat;
+      cout << "    J2             : " << J2 << endl << defaultfloat << endl;
     }
   }
   if (debug_lvl & 2 ) { // Instantiation/Destruction notification
